@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Compliance — WealthGrid</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="site.css">
+  <style>
+    .framework-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1px;
+      background: var(--glass-border);
+      border: 1px solid var(--glass-border);
+      border-radius: 12px;
+      overflow: hidden;
+      margin: 32px 0;
+    }
+    .framework-cell {
+      background: var(--glass-bg);
+      padding: 28px 24px;
+    }
+    .framework-label {
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--teal);
+      margin-bottom: 8px;
+      font-family: var(--mono);
+    }
+    .framework-name {
+      font-size: 15px;
+      font-weight: 500;
+      color: var(--white);
+      margin-bottom: 10px;
+    }
+    .framework-desc {
+      font-size: 12px;
+      color: rgba(255,255,255,0.35);
+      line-height: 1.65;
+    }
+    .doc-links-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-top: 24px;
+    }
+    .doc-link {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      padding: 18px 22px;
+      background: var(--glass-bg);
+      border: 1px solid var(--glass-border);
+      border-radius: 10px;
+      text-decoration: none;
+      transition: all 0.2s;
+    }
+    .doc-link:hover { background: rgba(15,175,154,0.06); border-color: rgba(15,175,154,0.3); }
+    .doc-link-icon {
+      width: 38px;
+      height: 38px;
+      border-radius: 8px;
+      background: rgba(15,175,154,0.1);
+      border: 1px solid rgba(15,175,154,0.2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      font-size: 15px;
+    }
+    .doc-link strong { display: block; font-size: 14px; font-weight: 500; color: rgba(255,255,255,0.85); margin-bottom: 2px; }
+    .doc-link span { font-size: 12px; color: rgba(255,255,255,0.35); }
+    @media (max-width: 700px) {
+      .framework-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+<div class="bg-canvas"><div class="grid-dots"></div></div>
+
+<nav>
+  <a href="index.html" class="nav-logo">
+    <svg width="32" height="32" viewBox="0 0 120 120" fill="none">
+      <defs><linearGradient id="wgmark_compliancehtml_0" x1="0" y1="1" x2="1" y2="0">
+        <stop offset="0" stop-color="#0FAF9A"/><stop offset="1" stop-color="#DBEE9F"/>
+      </linearGradient></defs>
+      <polygon points="114,60 87,13.2 33,13.2 6,60 33,106.8 87,106.8" fill="url(#wgmark_compliancehtml_0)"/>
+      <polyline points="32,48 46,80 60,58 74,80 90,32" fill="none" stroke="#0a0a1f" stroke-width="9" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+    <span class="logo-text"><span>Wealth</span><span>Grid</span></span>
+  </a>
+  <a href="index.html" class="nav-back">← Back to Home</a>
+</nav>
+
+<div class="page-hero fade-up">
+  <div class="page-hero-badge">Legal</div>
+  <h1>Compliance &amp; <em>Regulatory</em></h1>
+  <p class="hero-sub">WealthGrid Management LLC · Last Updated: May 2026</p>
+</div>
+
+<div class="content-wrap">
+  <div class="legal-nav">
+    <a href="terms.html">Terms of Service</a>
+    <a href="privacy.html">Privacy Policy</a>
+    <a href="risk.html">Risk Disclosure</a>
+    <a href="compliance.html" class="active">Compliance</a>
+  </div>
+
+  <div class="doc-section">
+    <h2>Regulatory Status</h2>
+    <p>WealthGrid Management LLC is a financial technology platform. We are <strong>not</strong> a registered investment adviser (RIA), broker-dealer, commodity trading adviser (CTA), commodity pool operator (CPO), or financial planner regulated by the SEC, CFTC, FINRA, or any state securities regulator.</p>
+    <p>Our WealthStream™ managed trading service operates through third-party licensed brokers. All client funds are held at the licensed broker in accounts under the client's name. WealthGrid does not take custody of client funds.</p>
+  </div>
+
+  <div class="doc-section">
+    <h2>Regulatory Frameworks</h2>
+    <div class="framework-grid">
+      <div class="framework-cell">
+        <div class="framework-label">AML</div>
+        <div class="framework-name">Bank Secrecy Act</div>
+        <div class="framework-desc">We maintain AML policies including customer identification and suspicious activity monitoring consistent with federal requirements.</div>
+      </div>
+      <div class="framework-cell">
+        <div class="framework-label">Identity</div>
+        <div class="framework-name">USA PATRIOT Act</div>
+        <div class="framework-desc">We verify client identity and screen against OFAC, FinCEN, and applicable sanction lists as required by law.</div>
+      </div>
+      <div class="framework-cell">
+        <div class="framework-label">Data Privacy</div>
+        <div class="framework-name">Gramm-Leach-Bliley Act</div>
+        <div class="framework-desc">We protect client nonpublic personal information and do not sell it to third parties for marketing purposes.</div>
+      </div>
+      <div class="framework-cell">
+        <div class="framework-label">E-Signatures</div>
+        <div class="framework-name">ESIGN Act</div>
+        <div class="framework-desc">Client agreements are executed electronically pursuant to the Electronic Signatures in Global and National Commerce Act, 15 U.S.C. § 7001.</div>
+      </div>
+      <div class="framework-cell">
+        <div class="framework-label">Communications</div>
+        <div class="framework-name">TCPA</div>
+        <div class="framework-desc">We obtain express written consent before sending marketing communications via phone or SMS, consistent with the Telephone Consumer Protection Act.</div>
+      </div>
+      <div class="framework-cell">
+        <div class="framework-label">State Privacy</div>
+        <div class="framework-name">CCPA / CPRA</div>
+        <div class="framework-desc">California residents have rights to access, delete, and opt out of the sale of personal information. We honor all requests at privacy@wealthgrid.ai.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="doc-section">
+    <h2>KYC / Identity Verification</h2>
+    <p>All clients are required to complete Know Your Customer (KYC) verification before accessing trading services. This includes verification of government-issued identification, address, and, where required, source of funds. KYC procedures are administered in accordance with FinCEN Customer Due Diligence rules and applicable state law.</p>
+    <p>WealthGrid reserves the right to refuse service, suspend accounts, or terminate relationships with any party who fails to satisfy KYC requirements or raises AML concerns.</p>
+  </div>
+
+  <div class="doc-section">
+    <h2>Accredited Investor Requirements</h2>
+    <p>Certain WealthGrid services, including elements of the WealthStream™ managed trading program, may be available only to accredited investors as defined under Rule 501 of SEC Regulation D (17 C.F.R. § 230.501). An accredited investor generally includes individuals with annual income exceeding $200,000 (or $300,000 jointly) in each of the two most recent years, or a net worth exceeding $1,000,000 excluding primary residence.</p>
+    <p>WealthGrid relies on client self-certification of accredited investor status. By representing yourself as an accredited investor, you acknowledge personal responsibility for the accuracy of that representation.</p>
+  </div>
+
+  <div class="doc-section">
+    <h2>Dispute Resolution</h2>
+    <p>All disputes between clients and WealthGrid are subject to binding arbitration administered by the American Arbitration Association (AAA) under its Consumer Arbitration Rules, with proceedings conducted in Florida or by videoconference. Class action waivers apply. See our <a href="terms.html" style="color:var(--teal);">Terms of Service, Section 17</a> for the complete arbitration agreement.</p>
+    <p>Clients may opt out of the arbitration agreement within 30 days of first accepting our Terms by sending written notice to legal@wealthgrid.ai.</p>
+  </div>
+
+  <div class="doc-section">
+    <h2>Governing Law</h2>
+    <p>All agreements between WealthGrid and its clients are governed by the laws of the State of Florida, without regard to conflict of law principles. For matters not subject to arbitration, the parties consent to exclusive jurisdiction in the state and federal courts of Florida.</p>
+  </div>
+
+  <div class="doc-section">
+    <h2>Legal Documents</h2>
+    <div class="doc-links-grid">
+      <a href="terms.html" class="doc-link">
+        <div class="doc-link-icon">📄</div>
+        <div><strong>Terms of Service</strong><span>Platform access, fees, arbitration clause, governing law</span></div>
+      </a>
+      <a href="privacy.html" class="doc-link">
+        <div class="doc-link-icon">🔒</div>
+        <div><strong>Privacy Policy</strong><span>Data collection, GLBA, CCPA/CPRA, breach notification, data retention</span></div>
+      </a>
+      <a href="risk.html" class="doc-link">
+        <div class="doc-link-icon">⚠️</div>
+        <div><strong>Risk Disclosure Statement</strong><span>Trading risks, no guarantee of returns, counterparty risk, FDIC/SIPC</span></div>
+      </a>
+    </div>
+  </div>
+
+  <div class="doc-section">
+    <h2>Compliance Contact</h2>
+    <p>Legal: <a href="mailto:legal@wealthgrid.ai" style="color:var(--teal);">legal@wealthgrid.ai</a></p>
+    <p>Privacy: <a href="mailto:privacy@wealthgrid.ai" style="color:var(--teal);">privacy@wealthgrid.ai</a></p>
+    <p>Support: <a href="mailto:support@wealthgrid.ai" style="color:var(--teal);">support@wealthgrid.ai</a></p>
+    <p style="margin-top:16px;">WealthGrid Management LLC · Florida, United States</p>
+  </div>
+</div>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-links-row">
+      <a href="terms.html">Terms of Service</a>
+      <a href="privacy.html">Privacy Policy</a>
+      <a href="risk.html">Risk Disclosure</a>
+      <a href="compliance.html">Compliance</a>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2026 WealthGrid. All rights reserved.</p>
+      <p>WealthGrid is a financial technology platform, not a registered investment advisor or broker-dealer.</p>
+    </div>
+  </div>
+</footer>
+<script src="affiliate-track.js" defer></script>
+</body>
+</html>
