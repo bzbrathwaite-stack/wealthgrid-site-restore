@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Careers — WealthGrid</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="site.css">
+  <style>
+    /* ─── Jobs section ─────────────────────── */
+    .jobs-wrap {
+      position: relative; z-index: 1;
+      max-width: 900px; margin: 0 auto; padding: 0 40px 80px;
+    }
+    .jobs-header { margin-bottom: 48px; }
+    .open-count {
+      font-family: var(--mono);
+      font-size: 11px;
+      color: rgba(255,255,255,0.3);
+      letter-spacing: 0.1em;
+      margin-bottom: 4px;
+    }
+    .job-card {
+      background: var(--glass-bg);
+      border: 1px solid var(--glass-border);
+      backdrop-filter: blur(20px);
+      border-radius: 12px;
+      padding: 40px;
+      margin-bottom: 20px;
+      position: relative;
+      overflow: hidden;
+      transition: box-shadow 0.3s;
+    }
+    .job-card::after {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(15,175,154,0.3), transparent);
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+    .job-card:hover { box-shadow: 0 20px 60px rgba(15,175,154,0.08); }
+    .job-card:hover::after { opacity: 1; }
+    .job-head {
+      display: flex; align-items: flex-start; justify-content: space-between;
+      gap: 20px; margin-bottom: 20px; flex-wrap: wrap;
+    }
+    .job-title { font-size: 22px; font-weight: 300; letter-spacing: -0.01em; margin-bottom: 10px; }
+    .job-badges { display: flex; gap: 8px; flex-wrap: wrap; }
+    .badge {
+      font-size: 10px; font-weight: 600; letter-spacing: 0.1em;
+      text-transform: uppercase; padding: 4px 12px; border-radius: 100px;
+    }
+    .badge-teal { color: var(--teal); border: 1px solid rgba(15,175,154,0.3); background: rgba(15,175,154,0.08); }
+    .badge-green { color: var(--green); border: 1px solid rgba(219,238,159,0.25); background: rgba(219,238,159,0.06); }
+    .badge-grey { color: rgba(255,255,255,0.35); border: 1px solid rgba(255,255,255,0.1); background: rgba(255,255,255,0.04); }
+    .job-desc { font-size: 14px; color: rgba(255,255,255,0.45); line-height: 1.75; margin-bottom: 28px; }
+    .job-list-label {
+      font-size: 10px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase;
+      color: rgba(255,255,255,0.25); margin-bottom: 12px;
+    }
+    .job-list { list-style: none; display: flex; flex-direction: column; gap: 9px; margin-bottom: 24px; }
+    .job-list li {
+      font-size: 13px; color: rgba(255,255,255,0.5);
+      display: flex; align-items: flex-start; gap: 10px; line-height: 1.6;
+    }
+    .job-list li::before { content: '—'; color: var(--teal); flex-shrink: 0; font-family: var(--mono); }
+    .job-divider { border: none; border-top: 1px solid rgba(15,175,154,0.1); margin: 24px 0; }
+    .job-meta { display: flex; gap: 24px; flex-wrap: wrap; }
+    .job-meta-item { font-size: 11px; color: rgba(255,255,255,0.3); display: flex; align-items: center; gap: 6px; }
+    .job-meta-item span { font-family: var(--mono); }
+    .apply-btn {
+      background: var(--teal); color: var(--black);
+      font-size: 12px; font-weight: 700; letter-spacing: 0.04em;
+      padding: 11px 22px; border-radius: 8px;
+      text-decoration: none; display: inline-block;
+      transition: all 0.2s; white-space: nowrap; flex-shrink: 0;
+    }
+    .apply-btn:hover { background: #0dcfb8; transform: translateY(-1px); box-shadow: 0 6px 20px rgba(15,175,154,0.3); }
+
+    /* ─── Values ───────────────────────────── */
+    .values-section {
+      position: relative; z-index: 1;
+      max-width: 900px; margin: 0 auto;
+      padding: 80px 40px;
+      border-top: 1px solid rgba(15,175,154,0.08);
+      background: rgba(16,16,47,0.3);
+    }
+    .values-grid {
+      display: grid; grid-template-columns: repeat(2, 1fr);
+      gap: 1px; background: rgba(15,175,154,0.08);
+      border: 1px solid rgba(15,175,154,0.08);
+      border-radius: 12px; overflow: hidden; margin-top: 48px;
+    }
+    .value-card {
+      background: rgba(0,0,0,0.6); padding: 40px 32px;
+      transition: background 0.3s;
+    }
+    .value-card:hover { background: rgba(15,175,154,0.04); }
+    .value-icon {
+      width: 40px; height: 40px; border-radius: 10px;
+      background: rgba(15,175,154,0.1); border: 1px solid rgba(15,175,154,0.2);
+      display: flex; align-items: center; justify-content: center;
+      margin-bottom: 20px; font-size: 18px;
+    }
+    .value-title { font-size: 16px; font-weight: 500; margin-bottom: 8px; }
+    .value-desc { font-size: 13px; color: rgba(255,255,255,0.4); line-height: 1.7; }
+
+    /* ─── CTA ──────────────────────────────── */
+    .cta-wrap {
+      position: relative; z-index: 1;
+      padding: 100px 40px; text-align: center;
+    }
+    .cta-wrap::before {
+      content: '';
+      position: absolute; inset: 0;
+      background: radial-gradient(ellipse 60% 80% at 50% 50%, rgba(15,175,154,0.06), transparent 70%);
+    }
+    .cta-box {
+      position: relative; z-index: 1;
+      max-width: 580px; margin: 0 auto;
+      background: var(--glass-bg);
+      border: 1px solid var(--glass-border);
+      backdrop-filter: blur(20px);
+      border-radius: 16px; padding: 64px 48px;
+    }
+    .cta-box h2 { font-size: clamp(24px, 3.5vw, 38px); margin-bottom: 14px; }
+    .cta-box p { font-size: 15px; color: rgba(255,255,255,0.45); margin-bottom: 36px; line-height: 1.7; }
+
+    @media (max-width: 768px) {
+      .jobs-wrap { padding: 0 20px 60px; }
+      .job-card { padding: 28px 20px; }
+      .job-head { flex-direction: column; }
+      .values-section { padding: 64px 20px; }
+      .values-grid { grid-template-columns: 1fr; }
+      .cta-wrap { padding: 80px 20px; }
+      .cta-box { padding: 40px 24px; }
+    }
+  </style>
+</head>
+<body>
+<div class="bg-canvas"><div class="grid-dots"></div></div>
+
+<nav>
+  <a href="index.html" class="nav-logo">
+    <svg width="32" height="32" viewBox="0 0 120 120" fill="none">
+      <defs><linearGradient id="wgmark_careershtml_0" x1="0" y1="1" x2="1" y2="0">
+        <stop offset="0" stop-color="#0FAF9A"/><stop offset="1" stop-color="#DBEE9F"/>
+      </linearGradient></defs>
+      <polygon points="114,60 87,13.2 33,13.2 6,60 33,106.8 87,106.8" fill="url(#wgmark_careershtml_0)"/>
+      <polyline points="32,48 46,80 60,58 74,80 90,32" fill="none" stroke="#0a0a1f" stroke-width="9" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+    <span class="logo-text"><span>Wealth</span><span>Grid</span></span>
+  </a>
+  <a href="index.html" class="nav-back">← Back to Home</a>
+</nav>
+
+<div class="page-hero fade-up">
+  <div class="page-hero-badge">We're Hiring</div>
+  <h1>Build the Future of <em>Private Wealth</em></h1>
+  <p class="hero-sub">A small, focused team building institutional-grade financial infrastructure. If you're elite at what you do and want work that matters — this is it.</p>
+</div>
+
+<div class="jobs-wrap fade-up-1">
+  <div class="jobs-header">
+    <div class="open-count">3 OPEN POSITIONS</div>
+    <div class="section-tag">Open Roles</div>
+  </div>
+
+  <!-- ALGO DEVELOPER -->
+  <div class="job-card">
+    <div class="job-head">
+      <div>
+        <div class="job-title">Algorithmic Developer</div>
+        <div class="job-badges">
+          <span class="badge badge-teal">Full-Time</span>
+          <span class="badge badge-green">Remote</span>
+          <span class="badge badge-grey">Engineering</span>
+        </div>
+      </div>
+      <a href="mailto:careers@wealthgrid.ai?subject=Algorithmic Developer Application" class="apply-btn">Apply Now →</a>
+    </div>
+    <p class="job-desc">Build, test, and maintain the systematic trading strategies behind WealthStream. You'll work directly on quantitative models, execution infrastructure, and risk management systems. High ownership, live deployment, real stakes.</p>
+    <div class="job-list-label">What You'll Do</div>
+    <ul class="job-list">
+      <li>Design, develop, and backtest quantitative trading strategies across forex, futures, and derivatives markets</li>
+      <li>Build and maintain automated execution systems with real-time risk controls and position management</li>
+      <li>Analyze trade performance data to identify optimization opportunities and reduce drawdown</li>
+      <li>Integrate with broker APIs and data feeds for live order execution and monitoring</li>
+      <li>Collaborate on strategy research — ORB, mean reversion, momentum, and custom models</li>
+    </ul>
+    <div class="job-list-label">What We're Looking For</div>
+    <ul class="job-list">
+      <li>Strong proficiency in Python with direct experience building and deploying automated trading systems in live markets</li>
+      <li>Deep understanding of forex/futures market microstructure, execution risk, and slippage</li>
+      <li>Familiarity with broker APIs (MetaTrader, Interactive Brokers, FXCM, or similar)</li>
+      <li>Comfort with statistical analysis, strategy validation, and drawdown analysis</li>
+      <li>Self-managed — you ship, don't just research</li>
+    </ul>
+    <hr class="job-divider">
+    <div class="job-meta">
+      <div class="job-meta-item">📍 <span>Remote (US preferred)</span></div>
+      <div class="job-meta-item">💰 <span>Competitive + performance bonus</span></div>
+    </div>
+  </div>
+
+  <!-- OPERATIONS MANAGER -->
+  <div class="job-card">
+    <div class="job-head">
+      <div>
+        <div class="job-title">Operations Manager</div>
+        <div class="job-badges">
+          <span class="badge badge-teal">Full-Time</span>
+          <span class="badge badge-green">Remote</span>
+          <span class="badge badge-grey">Operations</span>
+        </div>
+      </div>
+      <a href="mailto:careers@wealthgrid.ai?subject=Operations Manager Application" class="apply-btn">Apply Now →</a>
+    </div>
+    <p class="job-desc">Own the day-to-day machinery of the business. Manage client onboarding flows, internal processes, vendor relationships, and team coordination. You're the person who sees a broken process and immediately fixes it.</p>
+    <div class="job-list-label">What You'll Do</div>
+    <ul class="job-list">
+      <li>Own and optimize client onboarding workflows — from first contact to active account</li>
+      <li>Coordinate between trading, tech, and client-facing teams to ensure seamless execution</li>
+      <li>Build and maintain SOPs, process documentation, and team operating playbooks</li>
+      <li>Manage relationships with brokers, KYC providers, and third-party vendors</li>
+      <li>Support compliance activities including KYC review and regulatory documentation</li>
+    </ul>
+    <div class="job-list-label">What We're Looking For</div>
+    <ul class="job-list">
+      <li>3+ years in operations, client success, or business operations — financial services a plus</li>
+      <li>Highly organized with a bias for systems and documentation over ad-hoc fire-fighting</li>
+      <li>Strong communicator comfortable interfacing with high-net-worth clients</li>
+      <li>Able to manage multiple priorities independently without micromanagement</li>
+    </ul>
+    <hr class="job-divider">
+    <div class="job-meta">
+      <div class="job-meta-item">📍 <span>Remote (US preferred)</span></div>
+      <div class="job-meta-item">💰 <span>Competitive salary + equity</span></div>
+    </div>
+  </div>
+
+  <!-- SALES -->
+  <div class="job-card">
+    <div class="job-head">
+      <div>
+        <div class="job-title">High-Ticket Sales Consultant</div>
+        <div class="job-badges">
+          <span class="badge badge-teal">Full-Time</span>
+          <span class="badge badge-green">Remote</span>
+          <span class="badge badge-grey">Sales</span>
+        </div>
+      </div>
+      <a href="mailto:careers@wealthgrid.ai?subject=Sales Consultant Application" class="apply-btn">Apply Now →</a>
+    </div>
+    <p class="job-desc">Take qualified discovery calls, articulate the value of our managed trading and wealth services, and convert prospects into long-term clients. This is a role for someone who takes pride in the craft of selling and doesn't need their hand held.</p>
+    <div class="job-list-label">What You'll Do</div>
+    <ul class="job-list">
+      <li>Run discovery and strategy calls with pre-qualified prospects interested in WealthGrid</li>
+      <li>Articulate the value of WealthStream™, WealthGrid Black, and our advisory services to high-net-worth individuals</li>
+      <li>Guide prospects through the enrollment process — from initial interest to signed agreement</li>
+      <li>Follow up with pipeline leads using a disciplined, systematic approach</li>
+      <li>Provide market feedback to refine messaging, offer positioning, and sales materials</li>
+    </ul>
+    <div class="job-list-label">What We're Looking For</div>
+    <ul class="job-list">
+      <li>Proven track record closing high-ticket offers ($5,000–$50,000+) — finance, coaching, or consulting preferred</li>
+      <li>Strong phone and video presence — you build trust quickly and lead conversations with confidence</li>
+      <li>CRM discipline — you track everything and follow up religiously</li>
+      <li>Personal interest in wealth building, financial markets, or investing a strong plus</li>
+    </ul>
+    <hr class="job-divider">
+    <div class="job-meta">
+      <div class="job-meta-item">📍 <span>Remote (US)</span></div>
+      <div class="job-meta-item">💰 <span>Base + uncapped commission</span></div>
+    </div>
+  </div>
+</div>
+
+<section class="values-section">
+  <div class="section-tag">Why WealthGrid</div>
+  <h2>Where elite operators<br><em>actually want to work.</em></h2>
+  <div class="values-grid">
+    <div class="value-card">
+      <div class="value-icon">🎯</div>
+      <div class="value-title">High Ownership</div>
+      <div class="value-desc">Small team, big impact. You'll own entire domains and see your work deployed immediately — not waiting six months for a committee to approve it.</div>
+    </div>
+    <div class="value-card">
+      <div class="value-icon">📈</div>
+      <div class="value-title">Real Stakes</div>
+      <div class="value-desc">We manage real accounts with real money. The work is serious and the results are measurable. No vanity projects, no make-work.</div>
+    </div>
+    <div class="value-card">
+      <div class="value-icon">🌐</div>
+      <div class="value-title">Fully Remote</div>
+      <div class="value-desc">Work from anywhere. We're async-first and care about output, not hours on a call or presence in a Slack channel.</div>
+    </div>
+    <div class="value-card">
+      <div class="value-icon">💰</div>
+      <div class="value-title">Wealth-Aligned</div>
+      <div class="value-desc">Competitive compensation with performance incentives. We build wealth for our clients — and we do the same for our team.</div>
+    </div>
+  </div>
+</section>
+
+<section class="cta-wrap">
+  <div class="cta-box">
+    <div class="section-tag" style="justify-content:center;">Open Application</div>
+    <h2>Don't see your role?<br><em>Send a note anyway.</em></h2>
+    <p>We're always open to exceptional people. If you're elite at something relevant to financial technology, wealth management, or fintech infrastructure — send us a note. We read every email.</p>
+    <a href="mailto:careers@wealthgrid.ai?subject=General Application" class="btn-hero">Send a General Application →</a>
+    <p class="cta-note" style="margin-top:20px;">careers@wealthgrid.ai · We respond to every qualified inquiry within 48 hours</p>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-links-row">
+      <a href="index.html">Home</a>
+      <a href="terms.html">Terms</a>
+      <a href="privacy.html">Privacy</a>
+      <a href="compliance.html">Compliance</a>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2026 WealthGrid. All rights reserved.</p>
+      <p>WealthGrid is a financial technology platform, not a registered investment advisor or broker-dealer.</p>
+    </div>
+  </div>
+</footer>
+<script src="affiliate-track.js" defer></script>
+</body>
+</html>
