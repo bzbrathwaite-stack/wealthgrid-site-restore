@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Affiliate Program — WealthGrid</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="site.css">
+  <style>
+    /* ─── Hero stats row ───────────────────── */
+    .stat-row {
+      display: flex; align-items: center; gap: 16px;
+      flex-wrap: wrap; justify-content: center;
+      margin-top: 60px;
+    }
+    .stat-card {
+      background: var(--glass-bg);
+      border: 1px solid var(--glass-border);
+      backdrop-filter: blur(20px);
+      border-radius: 12px;
+      padding: 20px 28px;
+      text-align: left; min-width: 150px;
+    }
+    .stat-card .val {
+      font-family: var(--mono); font-size: 26px; font-weight: 500;
+      color: var(--teal); line-height: 1; margin-bottom: 4px;
+    }
+    .stat-card .val.green { color: var(--green); }
+    .stat-card .lbl {
+      font-size: 11px; color: rgba(255,255,255,0.35);
+      letter-spacing: 0.06em; text-transform: uppercase;
+    }
+
+    /* ─── How it works ─────────────────────── */
+    .how-section {
+      position: relative; z-index: 1;
+      padding: 100px 40px;
+      border-top: 1px solid rgba(255,255,255,0.04);
+      border-bottom: 1px solid rgba(255,255,255,0.04);
+      background: rgba(16,16,47,0.3);
+    }
+    .how-inner { max-width: 1000px; margin: 0 auto; }
+    .how-steps {
+      display: grid; grid-template-columns: repeat(3, 1fr);
+      gap: 40px; margin-top: 56px; position: relative;
+    }
+    .how-steps::before {
+      content: '';
+      position: absolute; top: 27px;
+      left: calc(16.66% + 20px); right: calc(16.66% + 20px);
+      height: 1px;
+      background: linear-gradient(90deg, var(--teal), rgba(219,238,159,0.5), var(--teal));
+      opacity: 0.25;
+    }
+    .how-step { text-align: center; padding: 0 16px; }
+    .step-circle {
+      width: 54px; height: 54px; border-radius: 50%;
+      background: var(--glass-bg); border: 1px solid var(--glass-border);
+      display: flex; align-items: center; justify-content: center;
+      font-family: var(--mono); font-size: 14px; color: var(--teal);
+      margin: 0 auto 24px;
+    }
+    .how-step h3 { font-size: 16px; font-weight: 500; margin-bottom: 10px; }
+    .how-step p { font-size: 13px; color: rgba(255,255,255,0.4); line-height: 1.7; }
+
+    /* ─── Commission tiers ─────────────────── */
+    .tiers-section {
+      position: relative; z-index: 1;
+      padding: 100px 40px; max-width: 1000px; margin: 0 auto;
+    }
+    .tiers-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr);
+      gap: 20px; margin-top: 56px;
+    }
+    .tier-card {
+      background: var(--glass-bg); border: 1px solid var(--glass-border);
+      backdrop-filter: blur(20px); border-radius: 12px; padding: 36px 28px;
+      position: relative; transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .tier-card:hover { transform: translateY(-4px); box-shadow: 0 20px 60px rgba(15,175,154,0.1); }
+    .tier-card.featured { border-color: var(--teal); background: rgba(15,175,154,0.06); }
+    .tier-card.featured::before {
+      content: 'MOST POPULAR';
+      position: absolute; top: -1px; left: 50%; transform: translateX(-50%);
+      background: var(--teal); color: var(--black);
+      font-size: 9px; font-weight: 700; letter-spacing: 0.12em;
+      padding: 4px 12px; border-radius: 0 0 6px 6px;
+    }
+    .tier-label { font-size: 10px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: rgba(255,255,255,0.35); margin-bottom: 10px; }
+    .tier-name { font-size: 18px; font-weight: 300; letter-spacing: -0.01em; margin-bottom: 20px; }
+    .tier-rate {
+      font-family: var(--mono); font-size: 48px; font-weight: 500;
+      color: var(--teal); line-height: 1; margin-bottom: 4px;
+    }
+    .tier-basis { font-size: 12px; color: rgba(255,255,255,0.3); margin-bottom: 24px; }
+    .tier-features { list-style: none; display: flex; flex-direction: column; gap: 9px; }
+    .tier-features li {
+      font-size: 12px; color: rgba(255,255,255,0.45);
+      display: flex; align-items: flex-start; gap: 8px; line-height: 1.5;
+    }
+    .tier-features li::before { content: '—'; color: var(--teal); flex-shrink: 0; font-family: var(--mono); }
+
+    /* ─── Application form ─────────────────── */
+    .form-section {
+      position: relative; z-index: 1;
+      padding: 0 40px 120px; max-width: 700px; margin: 0 auto;
+    }
+    .form-card {
+      background: var(--glass-bg); border: 1px solid var(--glass-border);
+      backdrop-filter: blur(20px); border-radius: 16px; padding: 56px 48px;
+    }
+    .form-card h2 { font-size: clamp(24px, 3.5vw, 36px); margin-bottom: 10px; }
+    .form-card > p { font-size: 14px; color: rgba(255,255,255,0.4); margin-bottom: 36px; line-height: 1.7; }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    .field { margin-bottom: 18px; }
+    label {
+      display: block; font-size: 10px; font-weight: 600;
+      letter-spacing: 0.12em; text-transform: uppercase;
+      color: rgba(255,255,255,0.35); margin-bottom: 8px;
+    }
+    input, select, textarea {
+      width: 100%; background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.1); border-radius: 8px;
+      padding: 12px 14px; font-size: 14px; color: var(--white);
+      font-family: var(--font); outline: none; transition: border-color 0.2s;
+    }
+    input::placeholder, textarea::placeholder { color: rgba(255,255,255,0.2); }
+    input:focus, select:focus, textarea:focus { border-color: var(--glass-border); }
+    select option { background: #10102F; }
+    textarea { resize: vertical; min-height: 96px; }
+    .form-note { font-size: 11px; color: rgba(255,255,255,0.2); text-align: center; margin-top: 16px; line-height: 1.6; }
+    .form-note a { color: var(--teal); text-decoration: none; }
+
+    @media (max-width: 768px) {
+      .how-section { padding: 64px 20px; }
+      .how-steps { grid-template-columns: 1fr; gap: 32px; }
+      .how-steps::before { display: none; }
+      .tiers-section { padding: 64px 20px; }
+      .tiers-grid { grid-template-columns: 1fr; }
+      .form-section { padding: 0 20px 80px; }
+      .form-card { padding: 36px 24px; }
+      .form-row { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+<div class="bg-canvas"><div class="grid-dots"></div></div>
+
+<nav>
+  <a href="index.html" class="nav-logo">
+    <svg width="32" height="32" viewBox="0 0 120 120" fill="none">
+      <defs><linearGradient id="wgmark_affiliatehtml_0" x1="0" y1="1" x2="1" y2="0">
+        <stop offset="0" stop-color="#0FAF9A"/><stop offset="1" stop-color="#DBEE9F"/>
+      </linearGradient></defs>
+      <polygon points="114,60 87,13.2 33,13.2 6,60 33,106.8 87,106.8" fill="url(#wgmark_affiliatehtml_0)"/>
+      <polyline points="32,48 46,80 60,58 74,80 90,32" fill="none" stroke="#0a0a1f" stroke-width="9" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+    <span class="logo-text"><span>Wealth</span><span>Grid</span></span>
+  </a>
+  <div class="nav-links">
+    <a href="index.html">Platform</a>
+    <a href="fund.html">Fund</a>
+    <a href="careers.html">Careers</a>
+  </div>
+  <a href="https://my.wealthgrid.ai/signup" class="btn-primary">Apply Now</a>
+</nav>
+
+<section style="position:relative;z-index:1;padding:160px 40px 80px;text-align:center;max-width:860px;margin:0 auto;">
+  <div class="hero-badge fade-up" style="display:inline-flex;align-items:center;gap:8px;background:var(--glass-bg);border:1px solid var(--glass-border);backdrop-filter:blur(12px);border-radius:100px;padding:6px 16px;font-size:11px;font-weight:500;letter-spacing:0.1em;text-transform:uppercase;color:var(--teal);margin-bottom:32px;">
+    <span style="width:6px;height:6px;border-radius:50%;background:var(--teal);animation:blink 2s ease-in-out infinite;"></span>
+    Affiliate Program
+  </div>
+  <h1 class="fade-up-1">Get paid to share<br><em>real wealth.</em></h1>
+  <p class="hero-sub fade-up-2" style="font-size:clamp(16px,2vw,19px);font-weight:300;color:rgba(255,255,255,0.55);max-width:540px;margin:0 auto 0;line-height:1.7;">Refer clients to WealthGrid and earn recurring commissions on every account you bring in. The more they grow, the more you earn.</p>
+  <div class="stat-row fade-up-3">
+    <div class="stat-card">
+      <div class="val">20%</div>
+      <div class="lbl">Recurring Commission</div>
+    </div>
+    <div class="stat-card">
+      <div class="val green">$0</div>
+      <div class="lbl">Cost to Join</div>
+    </div>
+    <div class="stat-card">
+      <div class="val">30d</div>
+      <div class="lbl">Payout Cycle</div>
+    </div>
+    <div class="stat-card">
+      <div class="val green">∞</div>
+      <div class="lbl">Earning Cap</div>
+    </div>
+  </div>
+</section>
+
+<section class="how-section">
+  <div class="how-inner">
+    <div class="section-tag">How It Works</div>
+    <h2>Three steps to<br><em>recurring income.</em></h2>
+    <div class="how-steps">
+      <div class="how-step">
+        <div class="step-circle">01</div>
+        <h3>Submit Your Application</h3>
+        <p>Fill out the form below. We review all applications within 48 hours and send your affiliate dashboard access and unique tracking link.</p>
+      </div>
+      <div class="how-step">
+        <div class="step-circle">02</div>
+        <h3>Share Your Link</h3>
+        <p>Get a unique tracking link and promotional assets. Share on social media, your email list, YouTube, or in person — however your audience finds you.</p>
+      </div>
+      <div class="how-step">
+        <div class="step-circle">03</div>
+        <h3>Earn Every Month</h3>
+        <p>Earn a recurring percentage of every referred client's subscription for as long as they stay active. No caps, no cliffs, no surprises.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="tiers-section">
+  <div class="section-tag">Commission Tiers</div>
+  <h2>Earn more as<br><em>you refer more.</em></h2>
+  <div class="tiers-grid">
+    <div class="tier-card">
+      <div class="tier-label">Starter</div>
+      <div class="tier-name">Partner</div>
+      <div class="tier-rate">15<span style="font-size:22px;color:rgba(255,255,255,0.4);">%</span></div>
+      <div class="tier-basis">per referred subscription</div>
+      <ul class="tier-features">
+        <li>Recurring commission on all referrals</li>
+        <li>Affiliate dashboard access</li>
+        <li>Tracking link + basic assets</li>
+      </ul>
+    </div>
+    <div class="tier-card featured">
+      <div class="tier-label">Most Popular</div>
+      <div class="tier-name">Affiliate Pro</div>
+      <div class="tier-rate">20<span style="font-size:22px;color:rgba(255,255,255,0.4);">%</span></div>
+      <div class="tier-basis">per referred subscription</div>
+      <ul class="tier-features">
+        <li>Unlocked after 5 active referrals</li>
+        <li>Priority support channel</li>
+        <li>Co-marketing opportunities</li>
+        <li>Custom landing page option</li>
+      </ul>
+    </div>
+    <div class="tier-card">
+      <div class="tier-label">Elite</div>
+      <div class="tier-name">Strategic Partner</div>
+      <div class="tier-rate">25<span style="font-size:22px;color:rgba(255,255,255,0.4);">%</span></div>
+      <div class="tier-basis">per referred subscription</div>
+      <ul class="tier-features">
+        <li>By invitation — high-volume partners</li>
+        <li>Custom commission structures</li>
+        <li>Direct team access</li>
+        <li>White-glove onboarding support</li>
+      </ul>
+    </div>
+  </div>
+  <p style="font-size:11px;color:rgba(255,255,255,0.2);margin-top:24px;text-align:center;letter-spacing:0.04em;">Commission rates subject to change. Current tier applies to all referrals at time of enrollment.</p>
+</section>
+
+<section class="form-section">
+  <div class="form-card">
+    <div class="section-tag">Apply</div>
+    <h2>Become a<br><em>WealthGrid Partner</em></h2>
+    <p>Tell us about yourself and how you plan to refer clients. We review every application and respond within 48 hours.</p>
+
+    <form action="mailto:affiliates@wealthgrid.ai" method="post" enctype="text/plain">
+      <div class="form-row">
+        <div class="field">
+          <label>First Name</label>
+          <input type="text" name="first_name" placeholder="John" required />
+        </div>
+        <div class="field">
+          <label>Last Name</label>
+          <input type="text" name="last_name" placeholder="Doe" required />
+        </div>
+      </div>
+      <div class="field">
+        <label>Email Address</label>
+        <input type="email" name="email" placeholder="you@example.com" required />
+      </div>
+      <div class="field">
+        <label>Phone Number</label>
+        <input type="tel" name="phone" placeholder="+1 (555) 000-0000" />
+      </div>
+      <div class="field">
+        <label>Primary Channel</label>
+        <select name="platform">
+          <option value="" disabled selected>Select your primary channel</option>
+          <option>YouTube</option>
+          <option>Instagram / TikTok</option>
+          <option>Email Newsletter</option>
+          <option>Podcast</option>
+          <option>Blog / Website</option>
+          <option>In-Person / Events</option>
+          <option>Financial Advisor / Planner</option>
+          <option>Other</option>
+        </select>
+      </div>
+      <div class="field">
+        <label>Audience Size</label>
+        <select name="audience_size">
+          <option value="" disabled selected>Select range</option>
+          <option>Under 1,000</option>
+          <option>1,000 – 5,000</option>
+          <option>5,000 – 25,000</option>
+          <option>25,000 – 100,000</option>
+          <option>100,000+</option>
+        </select>
+      </div>
+      <div class="field">
+        <label>How Will You Promote WealthGrid?</label>
+        <textarea name="promotion_plan" placeholder="Tell us about your audience, content style, and how you'd introduce WealthGrid to them..."></textarea>
+      </div>
+      <button type="submit" class="btn-hero" style="width:100%;margin-top:4px;text-align:center;border:none;cursor:pointer;">Submit Application →</button>
+      <p class="form-note">By submitting, you agree to our <a href="terms.html">Terms of Service</a>. We review all applications within 48 business hours.</p>
+    </form>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-links-row">
+      <a href="index.html">Home</a>
+      <a href="fund.html">WealthGrid Fund</a>
+      <a href="careers.html">Careers</a>
+      <a href="terms.html">Terms</a>
+      <a href="privacy.html">Privacy</a>
+      <a href="compliance.html">Compliance</a>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2026 WealthGrid. All rights reserved.</p>
+      <p>WealthGrid is a financial technology platform, not a registered investment advisor or broker-dealer.</p>
+    </div>
+  </div>
+</footer>
+
+<style>
+  @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0.3} }
+</style>
+<script src="affiliate-track.js" defer></script>
+</body>
+</html>
