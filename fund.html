@@ -1,0 +1,830 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>WealthGrid Fund — Private Alternative Investment Fund · Accredited Investors</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=DM+Mono:wght@400;500&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,300;1,400;1,600;1,700&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --navy:       #04071A;
+      --navy-mid:   #07102A;
+      --navy-card:  rgba(7,16,42,0.7);
+      --white:      #FFFFFF;
+      --off-white:  #EDE8E0;
+      --grey:       rgba(255,255,255,0.42);
+      --grey-dim:   rgba(255,255,255,0.18);
+      --grey-sub:   rgba(255,255,255,0.07);
+      --gold:       #C9B99A;
+      --gold-lt:    #DDD0B6;
+      --gold-dim:   rgba(201,185,154,0.14);
+      --gold-border:rgba(201,185,154,0.16);
+      --gold-glow:  rgba(201,185,154,0.06);
+      --glass-bg:   rgba(7,16,42,0.55);
+      --font:       'Inter', sans-serif;
+      --serif:      'Cormorant Garamond', Georgia, serif;
+      --mono:       'DM Mono', monospace;
+    }
+
+    html { scroll-behavior: smooth; }
+    body {
+      background: var(--navy);
+      color: var(--white);
+      font-family: var(--font);
+      font-weight: 400;
+      line-height: 1.6;
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ─── BACKGROUND ───────────────────────────────────── */
+    .bg-canvas {
+      position: fixed; inset: 0; z-index: 0; pointer-events: none;
+      background:
+        radial-gradient(ellipse 120% 50% at 50% -5%, rgba(201,185,154,0.05) 0%, transparent 55%),
+        radial-gradient(ellipse 70% 60% at 0% 80%, rgba(201,185,154,0.025) 0%, transparent 50%),
+        var(--navy);
+    }
+    .bg-grid {
+      position: fixed; inset: 0; z-index: 0; pointer-events: none;
+      background-image:
+        linear-gradient(rgba(201,185,154,0.028) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(201,185,154,0.028) 1px, transparent 1px);
+      background-size: 100px 100px;
+    }
+
+    /* ─── NAV ─────────────────────────────────────────── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      height: 64px;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 48px;
+      border-bottom: 1px solid var(--gold-border);
+      background: rgba(4,7,26,0.88);
+      backdrop-filter: blur(24px);
+    }
+    .nav-logo { display: flex; align-items: center; gap: 14px; text-decoration: none; }
+    .nav-hex { opacity: 0.75; }
+    .nav-wordmark { display: flex; flex-direction: column; line-height: 1; }
+    .nw-top { font-size: 13px; font-weight: 700; letter-spacing: 0.2em; color: var(--white); text-transform: uppercase; }
+    .nw-sub { font-size: 9px; font-weight: 500; letter-spacing: 0.28em; color: var(--gold); text-transform: uppercase; margin-top: 4px; opacity: 0.7; }
+    .nav-links { display: flex; gap: 36px; align-items: center; }
+    .nav-links a { font-size: 11px; font-weight: 500; letter-spacing: 0.1em; color: rgba(255,255,255,0.38); text-decoration: none; transition: color 0.2s; text-transform: uppercase; }
+    .nav-links a:hover { color: rgba(255,255,255,0.85); }
+    .nav-links a.platform { color: var(--gold); opacity: 0.55; }
+    .nav-links a.platform:hover { opacity: 1; }
+    .btn-nav-gold {
+      font-size: 11px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase;
+      padding: 9px 22px; border: 1px solid var(--gold-border); border-radius: 4px;
+      background: var(--gold-dim); color: var(--gold-lt); cursor: pointer;
+      transition: all 0.2s; text-decoration: none;
+    }
+    .btn-nav-gold:hover { background: rgba(201,185,154,0.22); border-color: rgba(201,185,154,0.4); color: var(--white); }
+
+    /* ─── GOLD DIVIDER ────────────────────────────────────── */
+    .gold-rule {
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--gold-border) 20%, var(--gold-border) 80%, transparent);
+      position: relative; z-index: 1;
+    }
+
+    /* ─── HERO ────────────────────────────────────────── */
+    .hero {
+      position: relative; z-index: 1;
+      min-height: 100vh;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      padding: 120px 48px 0;
+      text-align: center;
+      overflow: hidden;
+    }
+    .hero-badge {
+      display: inline-flex; align-items: center; gap: 10px;
+      border: 1px solid var(--gold-border); border-radius: 3px;
+      padding: 7px 18px;
+      font-size: 10px; font-weight: 600; letter-spacing: 0.22em;
+      text-transform: uppercase; color: var(--gold);
+      background: var(--gold-dim);
+      margin-bottom: 52px;
+      opacity: 0.85;
+    }
+    .badge-dot { width: 5px; height: 5px; border-radius: 50%; background: var(--gold); flex-shrink: 0; }
+    .hero h1 {
+      font-family: var(--serif);
+      font-size: clamp(52px, 8vw, 96px);
+      font-weight: 500;
+      line-height: 1.08;
+      letter-spacing: -0.01em;
+      max-width: 900px;
+      margin-bottom: 28px;
+      color: var(--white);
+    }
+    .hero h1 em {
+      font-style: italic;
+      color: var(--gold);
+    }
+    .hero-sub {
+      font-size: clamp(15px, 1.8vw, 17px);
+      color: rgba(255,255,255,0.38);
+      max-width: 560px;
+      margin: 0 auto 48px;
+      line-height: 1.8;
+      font-weight: 400;
+    }
+    .hero-actions { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; margin-bottom: 72px; }
+
+    .btn-gold {
+      font-size: 12px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase;
+      padding: 14px 32px; border-radius: 4px;
+      border: 1px solid rgba(201,185,154,0.5);
+      background: var(--gold);
+      color: var(--navy);
+      cursor: pointer; transition: all 0.22s; text-decoration: none; display: inline-block;
+    }
+    .btn-gold:hover { background: var(--gold-lt); transform: translateY(-1px); box-shadow: 0 8px 32px rgba(201,185,154,0.2); }
+    .btn-ghost-gold {
+      font-size: 12px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase;
+      padding: 14px 32px; border-radius: 4px;
+      border: 1px solid var(--gold-border);
+      background: transparent; color: rgba(255,255,255,0.5);
+      cursor: pointer; transition: all 0.22s; text-decoration: none; display: inline-block;
+    }
+    .btn-ghost-gold:hover { border-color: rgba(201,185,154,0.4); color: var(--gold); }
+
+    /* HERO STATS */
+    .hero-stats {
+      display: flex; gap: 0;
+      border: 1px solid var(--gold-border);
+      border-radius: 8px;
+      overflow: hidden;
+      max-width: 800px; width: 100%;
+      background: var(--glass-bg);
+      backdrop-filter: blur(16px);
+      margin-bottom: 0;
+    }
+    .hstat { flex: 1; padding: 32px 24px; text-align: center; border-right: 1px solid var(--gold-border); }
+    .hstat:last-child { border-right: none; }
+    .hstat-val { font-family: var(--mono); font-size: 28px; font-weight: 500; color: var(--gold); margin-bottom: 8px; letter-spacing: -0.02em; }
+    .hstat-label { font-size: 10px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: rgba(255,255,255,0.22); }
+
+    /* HERO CHART */
+    .hero-chart {
+      width: 100%;
+      max-width: 1100px;
+      height: 100px;
+      margin-top: 60px;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero-chart svg { width: 100%; height: 100%; }
+    .chart-line {
+      stroke-dasharray: 1400;
+      stroke-dashoffset: 1400;
+      animation: drawChart 3s cubic-bezier(0.4,0,0.2,1) 0.8s forwards;
+    }
+    .chart-fill {
+      opacity: 0;
+      animation: fadeInFill 1s ease-out 3.2s forwards;
+    }
+    .chart-dot {
+      opacity: 0;
+      animation: fadeInFill 0.4s ease-out 3.4s forwards;
+    }
+    @keyframes drawChart {
+      to { stroke-dashoffset: 0; }
+    }
+    @keyframes fadeInFill {
+      to { opacity: 1; }
+    }
+    .chart-fade {
+      position: absolute; bottom: 0; left: 0; right: 0; height: 40px;
+      background: linear-gradient(to bottom, transparent, var(--navy));
+    }
+
+    /* ─── SECTIONS ──────────────────────────────────────── */
+    .section-wrap {
+      position: relative; z-index: 1;
+      padding: 100px 48px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    .section-outer { position: relative; z-index: 1; }
+    .section-outer.alt { background: rgba(7,16,42,0.4); }
+
+    .section-tag {
+      font-size: 10px; font-weight: 700; letter-spacing: 0.24em;
+      text-transform: uppercase; color: var(--gold);
+      margin-bottom: 20px;
+      display: flex; align-items: center; gap: 12px;
+      opacity: 0.75;
+    }
+    .section-tag::before { content: ''; width: 28px; height: 1px; background: var(--gold); flex-shrink: 0; }
+
+    h2 {
+      font-size: clamp(28px, 3.5vw, 46px);
+      font-weight: 300;
+      line-height: 1.15;
+      letter-spacing: -0.02em;
+      margin-bottom: 18px;
+    }
+    h2 em { font-style: normal; color: var(--gold); font-weight: 400; }
+
+    .section-lead {
+      font-size: 15px; color: rgba(255,255,255,0.38);
+      max-width: 640px; line-height: 1.8; margin-bottom: 56px;
+    }
+
+    /* ─── ABOUT ───────────────────────────────────────── */
+    .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 100px; align-items: start; }
+    .about-body { font-size: 15px; color: rgba(255,255,255,0.42); line-height: 1.85; }
+    .about-body p { margin-bottom: 22px; }
+    .about-body p:last-child { margin-bottom: 0; }
+    .about-body strong { color: rgba(255,255,255,0.78); font-weight: 500; }
+
+    .pillar {
+      border-left: 1px solid var(--gold-border);
+      padding: 4px 0 4px 24px;
+      margin-bottom: 36px;
+      transition: border-color 0.3s;
+    }
+    .pillar:hover { border-color: rgba(201,185,154,0.5); }
+    .pillar:last-child { margin-bottom: 0; }
+    .pillar-title { font-size: 14px; font-weight: 600; color: rgba(255,255,255,0.85); margin-bottom: 6px; }
+    .pillar-desc { font-size: 13px; color: rgba(255,255,255,0.32); line-height: 1.65; }
+
+    /* ─── STRATEGY ────────────────────────────────────── */
+    .strategy-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: var(--gold-border); border-radius: 12px; overflow: hidden; }
+    .strategy-card {
+      background: var(--navy-mid);
+      padding: 44px 36px;
+      transition: background 0.3s;
+      position: relative;
+    }
+    .strategy-card:hover { background: rgba(201,185,154,0.04); }
+    .strategy-card::before {
+      content: '';
+      position: absolute; top: 0; left: 0; right: 0; height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(201,185,154,0.4), transparent);
+      opacity: 0; transition: opacity 0.3s;
+    }
+    .strategy-card:hover::before { opacity: 1; }
+    .strategy-num { font-family: var(--mono); font-size: 10px; color: var(--gold); letter-spacing: 0.14em; margin-bottom: 24px; opacity: 0.6; }
+    .strategy-title { font-size: 17px; font-weight: 500; color: var(--white); margin-bottom: 14px; }
+    .strategy-desc { font-size: 13px; color: rgba(255,255,255,0.32); line-height: 1.75; }
+
+    /* ─── ALLOCATION ──────────────────────────────────── */
+    .alloc-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: start; }
+    .alloc-list { display: flex; flex-direction: column; gap: 36px; }
+    .alloc-item {}
+    .alloc-header { display: flex; align-items: baseline; gap: 16px; margin-bottom: 10px; }
+    .alloc-pct { font-family: var(--mono); font-size: 24px; color: var(--gold); font-weight: 500; min-width: 60px; }
+    .alloc-name { font-size: 14px; font-weight: 600; color: rgba(255,255,255,0.8); }
+    .alloc-tag { font-size: 10px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: rgba(255,255,255,0.22); margin-left: auto; }
+    .alloc-track { height: 2px; background: rgba(201,185,154,0.1); border-radius: 2px; overflow: hidden; margin-bottom: 10px; }
+    .alloc-fill { height: 100%; background: linear-gradient(90deg, var(--gold), rgba(201,185,154,0.5)); border-radius: 2px; transform-origin: left; transform: scaleX(0); transition: transform 1.2s cubic-bezier(0.4,0,0.2,1); }
+    .alloc-fill.animate { transform: scaleX(1); }
+    .alloc-desc { font-size: 13px; color: rgba(255,255,255,0.3); line-height: 1.7; }
+    .alloc-sidebar {}
+    .alloc-callout {
+      border: 1px solid var(--gold-border);
+      border-radius: 12px;
+      padding: 36px 32px;
+      background: var(--gold-dim);
+      margin-bottom: 20px;
+    }
+    .alloc-callout-title { font-size: 13px; font-weight: 700; color: var(--gold); letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 14px; opacity: 0.8; }
+    .alloc-callout-body { font-size: 13px; color: rgba(255,255,255,0.38); line-height: 1.75; }
+    .alloc-callout-body strong { color: rgba(255,255,255,0.7); font-weight: 500; }
+
+    /* ─── FUND TERMS ──────────────────────────────────── */
+    .terms-row {
+      display: grid; grid-template-columns: repeat(4, 1fr);
+      gap: 1px; background: var(--gold-border);
+      border-radius: 10px; overflow: hidden; margin-bottom: 28px;
+    }
+    .term-cell {
+      background: var(--navy-mid);
+      padding: 40px 28px;
+    }
+    .term-label { font-size: 10px; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: rgba(255,255,255,0.22); margin-bottom: 16px; }
+    .term-val { font-family: var(--mono); font-size: 34px; font-weight: 500; color: var(--gold-lt); margin-bottom: 8px; letter-spacing: -0.02em; }
+    .term-note { font-size: 12px; color: rgba(255,255,255,0.28); line-height: 1.5; }
+
+    .terms-detail { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    .terms-detail-card { background: var(--glass-bg); border: 1px solid var(--gold-border); border-radius: 10px; padding: 32px; }
+    .terms-detail-title { font-size: 11px; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; color: var(--gold); opacity: 0.65; margin-bottom: 16px; }
+    .terms-detail-body { font-size: 13px; color: rgba(255,255,255,0.32); line-height: 1.8; }
+    .terms-detail-body strong { color: rgba(255,255,255,0.65); font-weight: 500; }
+
+    /* ─── QUALIFICATION ─────────────────────────────────── */
+    .qual-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; }
+    .qual-list { list-style: none; display: flex; flex-direction: column; gap: 16px; margin-top: 8px; }
+    .qual-list li {
+      display: flex; gap: 16px; align-items: flex-start;
+      font-size: 14px; color: rgba(255,255,255,0.4); line-height: 1.7;
+      padding-bottom: 16px;
+      border-bottom: 1px solid rgba(255,255,255,0.04);
+    }
+    .qual-list li:last-child { border-bottom: none; padding-bottom: 0; }
+    .qual-list li::before { content: '—'; color: var(--gold); flex-shrink: 0; font-family: var(--mono); opacity: 0.7; }
+    .qual-list li strong { color: rgba(255,255,255,0.72); font-weight: 500; }
+    .qual-note {
+      background: var(--glass-bg);
+      border: 1px solid var(--gold-border);
+      border-radius: 10px;
+      padding: 28px 32px;
+      margin-bottom: 16px;
+    }
+    .qual-note:last-child { margin-bottom: 0; }
+    .qual-note-title { font-size: 13px; font-weight: 600; color: rgba(255,255,255,0.72); margin-bottom: 12px; letter-spacing: 0.01em; }
+    .qual-note-body { font-size: 13px; color: rgba(255,255,255,0.32); line-height: 1.75; }
+
+    /* ─── PROCESS ─────────────────────────────────────── */
+    .process-steps {
+      display: grid; grid-template-columns: repeat(4, 1fr);
+      position: relative;
+    }
+    .process-steps::before {
+      content: ''; position: absolute;
+      top: 20px; left: calc(12.5% + 12px); right: calc(12.5% + 12px);
+      height: 1px;
+      background: linear-gradient(90deg, var(--gold-border), rgba(201,185,154,0.3), var(--gold-border));
+    }
+    .process-step { padding: 0 24px 0 0; text-align: left; }
+    .step-circle {
+      width: 40px; height: 40px; border-radius: 50%;
+      border: 1px solid var(--gold-border);
+      background: var(--navy-mid);
+      display: flex; align-items: center; justify-content: center;
+      margin-bottom: 28px;
+    }
+    .step-num { font-family: var(--mono); font-size: 11px; color: var(--gold); letter-spacing: 0.08em; }
+    .step-title { font-size: 15px; font-weight: 600; color: rgba(255,255,255,0.85); margin-bottom: 10px; }
+    .step-desc { font-size: 13px; color: rgba(255,255,255,0.3); line-height: 1.65; }
+
+    /* ─── CTA ─────────────────────────────────────────── */
+    .cta-outer {
+      position: relative; z-index: 1;
+      padding: 0 48px 120px;
+      text-align: center;
+    }
+    .cta-inner {
+      max-width: 760px; margin: 0 auto;
+      border: 1px solid var(--gold-border);
+      border-radius: 20px;
+      padding: 88px 64px;
+      background: var(--glass-bg);
+      backdrop-filter: blur(20px);
+      position: relative;
+      overflow: hidden;
+    }
+    .cta-inner::before {
+      content: '';
+      position: absolute; inset: 0;
+      background: radial-gradient(ellipse 80% 70% at 50% 100%, rgba(201,185,154,0.08), transparent 60%);
+      pointer-events: none;
+    }
+    .cta-inner::after {
+      content: '';
+      position: absolute; top: 0; left: 0; right: 0; height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(201,185,154,0.55), rgba(221,208,182,0.35), rgba(201,185,154,0.55), transparent);
+    }
+    .cta-inner h2 { font-size: clamp(28px, 4vw, 46px); font-weight: 300; margin-bottom: 18px; position: relative; }
+    .cta-inner h2 em { font-style: normal; color: var(--gold); font-weight: 400; }
+    .cta-inner p { font-size: 15px; color: rgba(255,255,255,0.32); margin-bottom: 44px; max-width: 480px; margin-left: auto; margin-right: auto; line-height: 1.8; position: relative; }
+    .cta-actions { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; margin-bottom: 24px; position: relative; }
+    .cta-note { font-size: 11px; color: rgba(255,255,255,0.2); letter-spacing: 0.06em; position: relative; }
+
+    /* ─── FOOTER ──────────────────────────────────────── */
+    footer { position: relative; z-index: 1; border-top: 1px solid var(--gold-border); padding: 52px 48px; }
+    .footer-inner { max-width: 1200px; margin: 0 auto; }
+    .footer-top { display: flex; align-items: flex-start; justify-content: space-between; margin-bottom: 40px; flex-wrap: wrap; gap: 32px; }
+    .footer-links { display: flex; gap: 32px; flex-wrap: wrap; align-items: center; }
+    .footer-links a { font-size: 11px; color: rgba(255,255,255,0.22); text-decoration: none; letter-spacing: 0.08em; transition: color 0.2s; text-transform: uppercase; }
+    .footer-links a:hover { color: rgba(201,185,154,0.7); }
+    .footer-legal { font-size: 10px; color: rgba(255,255,255,0.14); line-height: 1.75; border-top: 1px solid rgba(201,185,154,0.08); padding-top: 28px; max-width: 920px; }
+    .footer-legal a { color: rgba(201,185,154,0.3); text-decoration: none; }
+
+    /* ─── RESPONSIVE ──────────────────────────────────── */
+    @media (max-width: 1024px) {
+      .about-grid, .qual-grid, .alloc-layout { grid-template-columns: 1fr; gap: 48px; }
+      .strategy-grid { grid-template-columns: 1fr 1fr; }
+      .terms-row { grid-template-columns: 1fr 1fr; }
+      .process-steps { grid-template-columns: 1fr 1fr; gap: 40px; }
+      .process-steps::before { display: none; }
+    }
+    @media (max-width: 768px) {
+      nav { padding: 0 20px; }
+      .nav-links { display: none; }
+      .hero { padding: 100px 20px 0; }
+      .hero-stats { flex-direction: column; }
+      .hstat { border-right: none; border-bottom: 1px solid var(--gold-border); }
+      .hstat:last-child { border-bottom: none; }
+      .section-wrap { padding: 64px 20px; }
+      .strategy-grid { grid-template-columns: 1fr; }
+      .terms-row { grid-template-columns: 1fr 1fr; }
+      .terms-detail { grid-template-columns: 1fr; }
+      .process-steps { grid-template-columns: 1fr; gap: 32px; }
+      .cta-outer { padding: 0 20px 80px; }
+      .cta-inner { padding: 52px 28px; }
+      footer { padding: 36px 20px; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="bg-canvas"></div>
+<div class="bg-grid"></div>
+
+<!-- ─── NAV ───────────────────────────────────────────── -->
+<nav>
+  <a href="index.html" class="nav-logo">
+    <svg class="nav-hex" width="28" height="28" viewBox="0 0 120 120" fill="none">
+      <defs><linearGradient id="wgmark_fundhtml_0" x1="0" y1="1" x2="1" y2="0">
+        <stop offset="0" stop-color="#0FAF9A"/><stop offset="1" stop-color="#DBEE9F"/>
+      </linearGradient></defs>
+      <polygon points="114,60 87,13.2 33,13.2 6,60 33,106.8 87,106.8" fill="url(#wgmark_fundhtml_0)"/>
+      <polyline points="32,48 46,80 60,58 74,80 90,32" fill="none" stroke="#0a0a1f" stroke-width="9" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+    <div class="nav-wordmark">
+      <div class="nw-top">WealthGrid</div>
+      <div class="nw-sub">Private Fund</div>
+    </div>
+  </a>
+  <div class="nav-links">
+    <a href="#strategy">Strategy</a>
+    <a href="#allocation">Portfolio</a>
+    <a href="#terms">Fund Terms</a>
+    <a href="#qualify">Qualify</a>
+    <a href="index.html" class="platform">Client Platform →</a>
+  </div>
+  <a href="mailto:fund@wealthgrid.ai?subject=Investor Inquiry" class="btn-nav-gold">Request Documents</a>
+</nav>
+
+<!-- ─── HERO ───────────────────────────────────────────── -->
+<section class="hero">
+  <div class="hero-badge">
+    <div class="badge-dot"></div>
+    Private Fund &nbsp;·&nbsp; Reg D 506(b) &nbsp;·&nbsp; Accredited Investors Only
+  </div>
+
+  <h1>Systematic Capital.<br><em>Alternative Alpha.</em></h1>
+
+  <p class="hero-sub">A private multi-strategy investment fund combining quantitative algorithmic trading with alternative income assets — built for risk-adjusted, uncorrelated returns.</p>
+
+  <div class="hero-actions">
+    <a href="mailto:fund@wealthgrid.ai?subject=Investor Inquiry" class="btn-gold">Request Investor Documents →</a>
+    <a href="#strategy" class="btn-ghost-gold">View Strategy</a>
+  </div>
+
+  <div class="hero-stats">
+    <div class="hstat">
+      <div class="hstat-val">4–8%</div>
+      <div class="hstat-label">Target Monthly Return</div>
+    </div>
+    <div class="hstat">
+      <div class="hstat-val">$100K</div>
+      <div class="hstat-label">Minimum Investment</div>
+    </div>
+    <div class="hstat">
+      <div class="hstat-val">20%</div>
+      <div class="hstat-label">Performance Fee</div>
+    </div>
+    <div class="hstat">
+      <div class="hstat-val">Reg D</div>
+      <div class="hstat-label">506(b) · Private Placement</div>
+    </div>
+  </div>
+
+  <div class="hero-chart" id="heroChart">
+    <svg viewBox="0 0 1100 110" fill="none" preserveAspectRatio="none">
+      <defs>
+        <linearGradient id="cg" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="rgba(201,185,154,0.1)"/>
+          <stop offset="100%" stop-color="rgba(201,185,154,0)"/>
+        </linearGradient>
+      </defs>
+      <path class="chart-fill" d="M0,98 C60,94 100,88 160,80 S260,72 330,75 S420,60 500,50 S600,45 680,35 S780,22 870,16 S980,8 1100,4 L1100,110 L0,110 Z" fill="url(#cg)"/>
+      <path class="chart-line" d="M0,98 C60,94 100,88 160,80 S260,72 330,75 S420,60 500,50 S600,45 680,35 S780,22 870,16 S980,8 1100,4" stroke="rgba(201,185,154,0.5)" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+      <circle class="chart-dot" cx="500" cy="50" r="3" fill="rgba(201,185,154,0.5)"/>
+      <circle class="chart-dot" cx="780" cy="22" r="3" fill="rgba(201,185,154,0.6)"/>
+      <circle class="chart-dot" cx="1100" cy="4" r="4.5" fill="#C9B99A"/>
+    </svg>
+    <div class="chart-fade"></div>
+  </div>
+</section>
+
+<!-- ─── ABOUT ─────────────────────────────────────────── -->
+<div class="gold-rule"></div>
+<div class="section-outer">
+  <div class="section-wrap">
+    <div class="about-grid">
+      <div>
+        <div class="section-tag">About the Fund</div>
+        <h2>Built to perform.<br><em>Not to impress.</em></h2>
+        <div class="about-body">
+          <p>WealthGrid Fund is a <strong>private multi-strategy alternative investment fund</strong> operating under Reg D 506(b). We deploy capital across a diversified portfolio — from systematic quantitative trading to income-generating alternative assets including tax liens, secured real estate, and specialty credit.</p>
+          <p>Our quant trading core is fully algorithmic — signal-driven, defined-risk, with no emotional decision-making. Our alternative allocation layer targets non-correlated returns through assets largely uncorrelated to equity market volatility.</p>
+          <p>As a <strong>limited partner</strong>, your capital is managed with full transparency — daily trading logs, quarterly alternative reporting, and direct adviser access at every stage.</p>
+        </div>
+      </div>
+      <div>
+        <div class="pillar">
+          <div class="pillar-title">Algorithmic Execution</div>
+          <div class="pillar-desc">Every trade is systematic — signal-driven entries, defined exits, no discretionary noise. Emotions are not a variable in this fund.</div>
+        </div>
+        <div class="pillar">
+          <div class="pillar-title">Multi-Strategy Portfolio</div>
+          <div class="pillar-desc">Quant trading, tax lien investing, secured real estate — diversified across return types and market conditions.</div>
+        </div>
+        <div class="pillar">
+          <div class="pillar-title">Non-Custodial Structure</div>
+          <div class="pillar-desc">Your trading capital stays in your own brokerage account. WealthGrid Fund manages via limited power of attorney — we never hold your capital directly.</div>
+        </div>
+        <div class="pillar">
+          <div class="pillar-title">Complete Transparency</div>
+          <div class="pillar-desc">Daily MT4/MT5 trade logs. Auditable transaction history. Quarterly performance reports. No black boxes.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ─── STRATEGY ───────────────────────────────────────── -->
+<div class="gold-rule"></div>
+<div class="section-outer alt">
+  <div class="section-wrap" id="strategy">
+    <div class="section-tag">Our Strategy</div>
+    <h2>In the market when it matters.<br><em>Out when it doesn't.</em></h2>
+    <p class="section-lead">We are not buy-and-hold. Every position is entered on a high-probability algorithmic signal and exited on a defined target or stop. Active management. Systematic edge.</p>
+
+    <div class="strategy-grid">
+      <div class="strategy-card">
+        <div class="strategy-num">01 — SIGNAL</div>
+        <div class="strategy-title">Proprietary Signal Generation</div>
+        <div class="strategy-desc">Our algorithms scan forex, futures, and equity markets for statistically validated setups — momentum, mean reversion, and volatility-adjusted entries across multiple timeframes.</div>
+      </div>
+      <div class="strategy-card">
+        <div class="strategy-num">02 — EXECUTION</div>
+        <div class="strategy-title">Automated Order Management</div>
+        <div class="strategy-desc">Trades execute through MT4/MT5 with pre-set risk parameters. Position sizing is algorithmic. No emotion. No hesitation. No deviation from the model.</div>
+      </div>
+      <div class="strategy-card">
+        <div class="strategy-num">03 — REPORTING</div>
+        <div class="strategy-title">Daily LP Transparency</div>
+        <div class="strategy-desc">Every LP receives daily trade logs — auditable, timestamped, and exportable. Full P&amp;L visibility, drawdown metrics, and direct adviser access on request.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ─── PORTFOLIO ALLOCATION ─────────────────────────────── -->
+<div class="gold-rule"></div>
+<div class="section-outer">
+  <div class="section-wrap" id="allocation">
+    <div class="section-tag">Portfolio Diversification</div>
+    <h2>Four return streams.<br><em>One portfolio.</em></h2>
+
+    <div class="alloc-layout">
+      <div class="alloc-list" id="allocList">
+        <div class="alloc-item">
+          <div class="alloc-header">
+            <span class="alloc-pct">~50%</span>
+            <span class="alloc-name">Quantitative Trading</span>
+            <span class="alloc-tag">Core</span>
+          </div>
+          <div class="alloc-track"><div class="alloc-fill" style="--w:0.50"></div></div>
+          <div class="alloc-desc">Systematic forex, futures, and equity strategies. Algorithmic execution with defined risk parameters and daily reporting.</div>
+        </div>
+        <div class="alloc-item">
+          <div class="alloc-header">
+            <span class="alloc-pct">~20%</span>
+            <span class="alloc-name">Tax Lien Investing</span>
+            <span class="alloc-tag">Alternative Income</span>
+          </div>
+          <div class="alloc-track"><div class="alloc-fill" style="--w:0.20"></div></div>
+          <div class="alloc-desc">Government-issued tax lien certificates offering secured, statutory interest rates — collateralized by real property.</div>
+        </div>
+        <div class="alloc-item">
+          <div class="alloc-header">
+            <span class="alloc-pct">~20%</span>
+            <span class="alloc-name">Real Estate</span>
+            <span class="alloc-tag">Hard Assets</span>
+          </div>
+          <div class="alloc-track"><div class="alloc-fill" style="--w:0.20"></div></div>
+          <div class="alloc-desc">Income-generating and capital-appreciation real estate positions in select markets — primarily short-term, asset-secured structures.</div>
+        </div>
+        <div class="alloc-item">
+          <div class="alloc-header">
+            <span class="alloc-pct">~10%</span>
+            <span class="alloc-name">Specialty Credit</span>
+            <span class="alloc-tag">Opportunistic</span>
+          </div>
+          <div class="alloc-track"><div class="alloc-fill" style="--w:0.10"></div></div>
+          <div class="alloc-desc">High-yield, short-duration specialty credit and select private lending with defined return profiles and collateral backing.</div>
+        </div>
+      </div>
+
+      <div class="alloc-sidebar">
+        <div class="alloc-callout">
+          <div class="alloc-callout-title">Why diversify beyond quant?</div>
+          <div class="alloc-callout-body">
+            <p>Pure algorithmic trading carries correlation risk — all strategies suffer when market regimes shift. Our alternative allocation layer — tax liens, real estate, specialty credit — generates return <strong>regardless of equity or forex market conditions</strong>.</p>
+            <br>
+            <p>The result is a portfolio with multiple uncorrelated income streams, lower peak drawdown exposure, and <strong>more consistent month-to-month performance</strong> across varying environments.</p>
+          </div>
+        </div>
+        <div class="alloc-callout" style="background: transparent; border-color: rgba(255,255,255,0.06);">
+          <div class="alloc-callout-title" style="color: rgba(255,255,255,0.4);">Allocation Disclaimer</div>
+          <div class="alloc-callout-body" style="font-size: 12px; color: rgba(255,255,255,0.22);">
+            Percentages shown are target allocations and are subject to change based on market conditions, opportunity set, and risk management protocols. Actual allocations may differ. See PPM for full details.
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ─── FUND TERMS ───────────────────────────────────── -->
+<div class="gold-rule"></div>
+<div class="section-outer alt">
+  <div class="section-wrap" id="terms">
+    <div class="section-tag">Fund Terms</div>
+    <h2>Aligned incentives.<br><em>Performance-first structure.</em></h2>
+    <p class="section-lead">We profit when you profit. Management fees are minimal — performance is where we earn.</p>
+
+    <div class="terms-row">
+      <div class="term-cell">
+        <div class="term-label">Minimum Investment</div>
+        <div class="term-val">$100K</div>
+        <div class="term-note">Per LP commitment</div>
+      </div>
+      <div class="term-cell">
+        <div class="term-label">Performance Fee</div>
+        <div class="term-val">20%</div>
+        <div class="term-note">On profits only — high-watermark applies</div>
+      </div>
+      <div class="term-cell">
+        <div class="term-label">Management Fee</div>
+        <div class="term-val">2%</div>
+        <div class="term-note">Annual · billed quarterly</div>
+      </div>
+      <div class="term-cell">
+        <div class="term-label">Structure</div>
+        <div class="term-val">Reg D</div>
+        <div class="term-note">506(b) · Private placement</div>
+      </div>
+    </div>
+
+    <div class="terms-detail">
+      <div class="terms-detail-card">
+        <div class="terms-detail-title">Capital Structure</div>
+        <div class="terms-detail-body">
+          <strong>Non-custodial trading component.</strong> Your trading capital is held in your own brokerage account — WealthGrid Fund manages via limited power of attorney. You maintain full withdrawal rights and account visibility at all times.<br><br>
+          <strong>High-watermark applies.</strong> Performance fees are only charged on net new gains — if the account dips, we earn nothing until we've recovered prior losses and produced new profit.
+        </div>
+      </div>
+      <div class="terms-detail-card">
+        <div class="terms-detail-title">Reporting &amp; Liquidity</div>
+        <div class="terms-detail-body">
+          <strong>Daily trade logs</strong> delivered to all LPs. Full MT4/MT5 transaction history, auditable on request.<br><br>
+          <strong>Quarterly reporting</strong> on alternative allocations, portfolio performance, and strategy updates.<br><br>
+          <strong>Liquidity terms</strong> and withdrawal windows are outlined in the Private Placement Memorandum. Request documents to review full terms.
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ─── QUALIFICATION ───────────────────────────────── -->
+<div class="gold-rule"></div>
+<div class="section-outer">
+  <div class="section-wrap" id="qualify">
+    <div class="qual-grid">
+      <div>
+        <div class="section-tag">Who Qualifies</div>
+        <h2>Accredited investors<br><em>only.</em></h2>
+        <p style="font-size:14px;color:rgba(255,255,255,0.32);line-height:1.8;margin-bottom:36px;">Per SEC regulation, participation in WealthGrid Fund is restricted to accredited investors. You qualify if you meet any of the following criteria:</p>
+        <ul class="qual-list">
+          <li><div><strong>Income threshold</strong> — Individual income exceeding $200K (or $300K joint) in each of the last two years with reasonable expectation of the same.</div></li>
+          <li><div><strong>Net worth</strong> — Net worth exceeding $1M, excluding primary residence.</div></li>
+          <li><div><strong>Professional certifications</strong> — Holder of Series 7, 65, or 82 license in good standing.</div></li>
+          <li><div><strong>Entity qualification</strong> — Corporations, partnerships, or trusts with assets exceeding $5M.</div></li>
+          <li><div><strong>Knowledgeable employee</strong> — Investment professionals of a qualifying investment fund.</div></li>
+        </ul>
+      </div>
+      <div style="padding-top:56px;">
+        <div class="qual-note">
+          <div class="qual-note-title">What happens after you apply?</div>
+          <div class="qual-note-body">After submitting your inquiry, our team will reach out within 48 hours to schedule a qualification call. We review your investor profile, answer questions about the fund structure, and — if there's a fit — provide full access to the Private Placement Memorandum, subscription documents, and onboarding materials.</div>
+        </div>
+        <div class="qual-note">
+          <div class="qual-note-title">No obligation to commit</div>
+          <div class="qual-note-body">Requesting documents or scheduling a call carries no commitment. We are selective about the investors we bring in — this is a two-way vetting process. Capital deployment begins only after all documentation is signed and verified.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ─── PROCESS ──────────────────────────────────────── -->
+<div class="gold-rule"></div>
+<div class="section-outer alt">
+  <div class="section-wrap">
+    <div class="section-tag">How It Works</div>
+    <h2>Four steps from inquiry<br><em>to active allocation.</em></h2>
+    <div class="process-steps" style="margin-top:52px;">
+      <div class="process-step">
+        <div class="step-circle"><div class="step-num">01</div></div>
+        <div class="step-title">Request Documents</div>
+        <div class="step-desc">Submit your inquiry. We respond within 48 hours with a qualification call invitation.</div>
+      </div>
+      <div class="process-step">
+        <div class="step-circle"><div class="step-num">02</div></div>
+        <div class="step-title">Qualification Call</div>
+        <div class="step-desc">We review your investor profile, walk through the fund structure, and confirm accredited status.</div>
+      </div>
+      <div class="process-step">
+        <div class="step-circle"><div class="step-num">03</div></div>
+        <div class="step-title">Review the PPM</div>
+        <div class="step-desc">Full Private Placement Memorandum and subscription documents are provided for legal review.</div>
+      </div>
+      <div class="process-step">
+        <div class="step-circle"><div class="step-num">04</div></div>
+        <div class="step-title">Capital Deployment</div>
+        <div class="step-desc">Once documents are signed and capital deposited, trading algorithms activate within the same week.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ─── CTA ────────────────────────────────────────── -->
+<div class="gold-rule"></div>
+<div class="section-outer" style="padding-top:100px;">
+  <div class="cta-outer">
+    <div class="cta-inner">
+      <div class="section-tag" style="justify-content:center; margin-bottom:24px;">Private Fund</div>
+      <h2>Ready to put your<br><em>capital to work?</em></h2>
+      <p>We accept a limited number of investors per quarter. If you meet the accredited investor criteria and are ready to explore systematic, multi-strategy returns — start the conversation.</p>
+      <div class="cta-actions">
+        <a href="mailto:fund@wealthgrid.ai?subject=Investor Inquiry" class="btn-gold">Request Investor Documents →</a>
+        <a href="https://api.leadconnectorhq.com/widget/booking/LyYJanUXXaHiY9GFflHy" target="_blank" rel="noopener noreferrer" class="btn-ghost-gold">Schedule a Call</a>
+      </div>
+      <p class="cta-note">Accredited investors only &nbsp;·&nbsp; No commitment until documents are signed &nbsp;·&nbsp; Limited capacity per quarter</p>
+    </div>
+  </div>
+</div>
+
+<!-- ─── FOOTER ─────────────────────────────────────── -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-top">
+      <a href="index.html" class="nav-logo" style="text-decoration:none;">
+        <svg width="24" height="24" viewBox="0 0 120 120" fill="none">
+      <defs><linearGradient id="wgmark_fundhtml_1" x1="0" y1="1" x2="1" y2="0">
+        <stop offset="0" stop-color="#0FAF9A"/><stop offset="1" stop-color="#DBEE9F"/>
+      </linearGradient></defs>
+      <polygon points="114,60 87,13.2 33,13.2 6,60 33,106.8 87,106.8" fill="url(#wgmark_fundhtml_1)"/>
+      <polyline points="32,48 46,80 60,58 74,80 90,32" fill="none" stroke="#0a0a1f" stroke-width="9" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+        <div class="nav-wordmark" style="margin-left:10px;">
+          <div class="nw-top">WealthGrid</div>
+          <div class="nw-sub">Private Fund</div>
+        </div>
+      </a>
+      <div class="footer-links">
+        <a href="index.html">Client Platform</a>
+        <a href="#strategy">Strategy</a>
+        <a href="#terms">Fund Terms</a>
+        <a href="#qualify">Qualification</a>
+        <a href="mailto:fund@wealthgrid.ai">fund@wealthgrid.ai</a>
+      </div>
+    </div>
+    <div class="footer-legal">
+      WealthGrid Fund is a private investment fund operating under Regulation D, Rule 506(b) of the Securities Act of 1933. This webpage does not constitute an offer to sell or a solicitation of an offer to buy any securities. Any offering of securities will be made only to accredited investors through a Private Placement Memorandum (PPM). Participation is subject to investor suitability, accredited investor verification, and execution of subscription documents. Portfolio allocation percentages shown are illustrative targets and subject to change. All investing involves risk. Past performance does not guarantee future results. Alternative investments carry additional risks including illiquidity. Prospective investors should consult their own legal, tax, and financial advisers before making any investment decision. &nbsp;·&nbsp; WealthGrid Management LLC &nbsp;·&nbsp; <a href="terms.html">Terms</a> &nbsp;·&nbsp; <a href="compliance.html">Compliance</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // Animate allocation bars when they scroll into view
+  const fills = document.querySelectorAll('.alloc-fill');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        const w = parseFloat(e.target.style.getPropertyValue('--w') || 0);
+        e.target.style.transform = `scaleX(${w})`;
+        e.target.classList.add('animate');
+      }
+    });
+  }, { threshold: 0.3 });
+  fills.forEach(f => observer.observe(f));
+</script>
+
+<script src="affiliate-track.js" defer></script>
+</body>
+</html>
